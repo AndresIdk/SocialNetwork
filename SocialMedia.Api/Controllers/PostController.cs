@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using SocialMedia.Api.Responses;
 using SocialMedia.Core.DTOs;
 using SocialMedia.Core.Entities;
 using SocialMedia.Core.Interfaces;
@@ -10,30 +11,31 @@ namespace SocialMedia.Api.Controllers
     [ApiController]
     public class PostController : ControllerBase
     {
-        private readonly IPostRepository _postRepository;
+        private readonly IPostService _postService;
         private readonly IMapper _mapper;
-        public PostController(IPostRepository postRepository, IMapper mapper)
+        public PostController(IPostService postService, IMapper mapper)
         {
-            _postRepository = postRepository;
+            _postService = postService;
             _mapper = mapper;
         }
 
         [HttpGet]
         public ActionResult<IEnumerable<PostDto>> GetPosts()
         {
-            var posts = _postRepository.GetPosts();
+            var posts = _postService.GetPosts();
             var postsDto = _mapper.Map<IEnumerable<PostDto>>(posts);
-            System.Diagnostics.Debug.WriteLine("hola");
-            return Ok(postsDto);
+            var response = new ApiResponse<IEnumerable<PostDto>>(postsDto);
+            return Ok(response);
         }
 
         [HttpPost]
-        public ActionResult<Post> InsertPost([FromBody] PostDto postDto)
+        public ActionResult<PostDto> InsertPost([FromBody] PostDto postDto)
         {
             var post = _mapper.Map<Post>(postDto);
-            _postRepository.InsertPost(post);
-
-            return Ok(post);
+            _postService.InsertPost(post);
+            var postDtoR = _mapper.Map<PostDto>(post);
+            var response = new ApiResponse<PostDto>(postDtoR);
+            return Ok(response);
         }
 
         [HttpGet("{cad:int}")]

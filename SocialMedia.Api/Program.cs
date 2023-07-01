@@ -15,6 +15,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 // Inyeccion de dependencias - Repositorio SQL SERVER
 builder.Services.AddTransient<IPostRepository, PostRepository>();
+// Inyeccion de dependencias - Logica de negocios, PostService
+builder.Services.AddTransient<IPostService, IPostService>();
 // Automapeador cambio entre modelos - AutoMapper
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddMvc(opc =>

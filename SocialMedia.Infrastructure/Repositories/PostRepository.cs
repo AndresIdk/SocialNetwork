@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using SocialMedia.Core.DTOs;
-using SocialMedia.Core.Entities;
+﻿using SocialMedia.Core.Entities;
 using SocialMedia.Core.Interfaces;
 
 namespace SocialMedia.Infrastructure.Repositories
