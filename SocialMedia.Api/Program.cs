@@ -1,6 +1,7 @@
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using SocialMedia.Core.Interfaces;
+using SocialMedia.Core.Services;
 using SocialMedia.Infrastructure.Filters;
 using SocialMedia.Infrastructure.Repositories;
 using SocialMedia.Infrastructure.Validators;
@@ -16,7 +17,7 @@ builder.Services.AddSwaggerGen();
 // Inyeccion de dependencias - Repositorio SQL SERVER
 builder.Services.AddTransient<IPostRepository, PostRepository>();
 // Inyeccion de dependencias - Logica de negocios, PostService
-builder.Services.AddTransient<IPostService, IPostService>();
+builder.Services.AddTransient<IPostService, PostService>();
 // Automapeador cambio entre modelos - AutoMapper
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddMvc(opc =>
